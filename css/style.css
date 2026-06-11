@@ -1,0 +1,575 @@
+/* ==========================================================================
+   RESET & VARIÁVEIS LUXO (Inspirado em Apple, Rolex & Cartier)
+   ========================================================================== */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --bg-dark: #070708;
+    --text-primary: #f5f5f7;
+    --text-muted: #86868b;
+    --accent-gold: #d4af37;
+    --accent-gold-soft: rgba(212, 175, 55, 0.15);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.05);
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Inter', -apple-system, sans-serif;
+}
+
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    scroll-behavior: smooth;
+}
+
+/* ==========================================================================
+   FUNDO VIVO E SOFISTICADO (Textura e Luz Profunda)
+   ========================================================================== */
+.ambient-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, #111115 0%, #070708 100%);
+}
+
+.noise-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.glow-light {
+    position: absolute;
+    top: -20%;
+    left: 20%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.03) 0%, rgba(0,0,0,0) 70%);
+    filter: blur(80px);
+    animation: floatingGlow 12s ease-in-out infinite alternate;
+}
+
+#particles-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes floatingGlow {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(5%, 10%) scale(1.1); }
+}
+
+/* ==========================================================================
+   ESTILOS DE CONTAINER & TIPOGRAFIA GENERALIZADOS
+   ========================================================================== */
+.section-container {
+    position: relative;
+    z-index: 2;
+    min-height: 100vh;
+    padding: 120px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 60px;
+    color: var(--text-primary);
+}
+
+.text-center { text-align: center; }
+
+/* Botão Premium Estilo Alta Costura */
+.btn-premium {
+    background: transparent;
+    border: none;
+    padding: 14px 48px;
+    cursor: pointer;
+    position: relative;
+    margin-top: 30px;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-text {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 4px;
+    color: var(--text-primary);
+    transition: color 0.4s ease;
+}
+
+.btn-line {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 40px;
+    height: 1px;
+    background-color: var(--text-primary);
+    transform: translateX(-50%);
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.btn-premium:hover .btn-line,
+.btn-premium:active .btn-line {
+    width: 100%;
+    background-color: var(--accent-gold);
+}
+
+/* ==========================================================================
+   1. INTRO SCREEN
+   ========================================================================== */
+.intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-dark);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.intro-wrap {
+    padding: 0 24px;
+}
+
+.intro-title {
+    font-family: var(--font-serif);
+    font-size: 2.8rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    opacity: 0;
+}
+
+.intro-subtitle {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    opacity: 0;
+}
+
+#start-btn {
+    opacity: 0;
+}
+
+/* ==========================================================================
+   AUDIO PLAYER DESIGN
+   ========================================================================== */
+.audio-player-container {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 900;
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.audio-toggle-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 10px 16px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    outline: none;
+}
+
+.player-text {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--text-primary);
+}
+
+.music-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    width: 15px;
+    height: 12px;
+}
+
+.music-bars span {
+    width: 2px;
+    height: 100%;
+    background-color: var(--text-primary);
+    transform-origin: bottom;
+    transform: scaleY(0.3);
+    transition: transform 0.3s ease;
+}
+
+/* Estado de Música Tocando */
+.audio-player-container.playing .music-bars span {
+    animation: soundWave 1.2s ease-in-out infinite alternate;
+    background-color: var(--accent-gold);
+}
+.audio-player-container.playing .music-bars span:nth-child(2) { animation-delay: 0.2s; }
+.audio-player-container.playing .music-bars span:nth-child(3) { animation-delay: 0.4s; }
+.audio-player-container.playing .music-bars span:nth-child(4) { animation-delay: 0.1s; }
+
+@keyframes soundWave {
+    0% { transform: scaleY(0.2); }
+    100% { transform: scaleY(1); }
+}
+
+/* ==========================================================================
+   2. CARTA VIVA (Revelação Cinematográfica de Texto)
+   ========================================================================== */
+.letter-section {
+    padding-top: 160px;
+    max-width: 700px;
+}
+
+.letter-wrapper {
+    width: 100%;
+}
+
+.letter-text-box {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    line-height: 2.2;
+    font-weight: 300;
+    color: var(--text-primary);
+}
+
+.letter-p {
+    margin-bottom: 2.5rem;
+    opacity: 0.15; /* Base para o efeito de acendimento do GSAP Scroll */
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    transform: translateY(5px);
+}
+
+.letter-p.revealed {
+    opacity: 1 !important;
+    transform: translateY(0);
+}
+
+.font-signature {
+    font-style: italic;
+    font-size: 1.7rem;
+    margin-top: 4rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent-gold);
+}
+
+.letter-author {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* ==========================================================================
+   3. SIGNIFICADO DO PRESENTE (Cards Minimalistas de Luxo)
+   ========================================================================== */
+.gifts-grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.gift-item {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 40px 30px;
+    border-radius: 8px;
+    transition: border-color 0.5s ease, transform 0.5s ease;
+}
+
+.gift-item:hover {
+    border-color: rgba(212, 175, 55, 0.3);
+}
+
+.gift-icon {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    opacity: 0.9;
+}
+
+.gift-title {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.gift-desc {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+/* ==========================================================================
+   4. GALERIA IMERSIVA PREMIUM (Horizontal Slider / Parallax)
+   ========================================================================== */
+.gallery-section {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100%;
+}
+
+.gallery-viewport {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    cursor: grab;
+    padding: 20px 0;
+    /* Esconder barra de rolagem padrão */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.gallery-viewport::-webkit-scrollbar {
+    display: none;
+}
+
+.gallery-viewport:active {
+    cursor: grabbing;
+}
+
+.gallery-track {
+    display: flex;
+    gap: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+    width: max-content;
+}
+
+.gallery-item {
+    width: 75vw;
+    max-width: 320px;
+    height: 460px;
+    overflow: hidden;
+    border-radius: 4px;
+    position: relative;
+    background-color: #0d0d0e;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.gallery-img-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%) brightness(85%);
+    transition: transform 0.5s ease, filter 0.5s ease;
+    transform: scale(1.05);
+}
+
+.gallery-item:hover img {
+    filter: grayscale(0%) brightness(100%);
+    transform: scale(1);
+}
+
+.gallery-instruction {
+    margin-top: 30px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   5. LINHA DO TEMPO & CONTADOR PREMIUM
+   ========================================================================== */
+.timeline-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.timeline-node {
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.node-date {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.node-content h3 {
+    font-family: var(--font-serif);
+    font-size: 1.7rem;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.node-content p {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 450px;
+    margin: 0 auto;
+    font-weight: 300;
+}
+
+.timeline-connector {
+    color: var(--text-muted);
+    opacity: 0.4;
+    font-size: 1.5rem;
+    margin: 25px 0;
+}
+
+/* Área em destaque do Contador Dinâmico */
+.current-node .node-content {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 40px 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.counter-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.counter-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 4px;
+}
+
+.counter-value {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+.counter-label {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-top: 5px;
+}
+
+/* ==========================================================================
+   6. FINAL SILENCIOSO
+   ========================================================================== */
+.final-section {
+    min-height: 100vh;
+    justify-content: center;
+}
+
+.final-wrap {
+    text-align: center;
+}
+
+.final-message {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 60px;
+    opacity: 0;
+}
+
+.final-signature-wrap {
+    opacity: 0;
+}
+
+.final-sub {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+}
+
+.final-name {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    color: var(--accent-gold);
+}
+
+/* Muted GSAP Init State for standard elements */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE PREMIUM (Ajustes finos para Mobile-First)
+   ========================================================================== */
+@media (min-width: 768px) {
+    .section-title { font-size: 2.8rem; }
+    .intro-title { font-size: 4rem; }
+    .letter-text-box { font-size: 1.5rem; line-height: 2.4; }
+    .gifts-grid { grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 100%; }
+    .gallery-item { width: 300px; height: 500px; }
+    .counter-value { font-size: 2.5rem; }
+    .final-message { font-size: 3rem; }
+}
